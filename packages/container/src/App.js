@@ -1,3 +1,9 @@
 import React from "react";
+import MarketingApp from "./components/MarketingApp";
 
-export default () => <h1>From container</h1>;
+export default () => (
+  <div>
+    <h1>From Container!</h1>
+    <MarketingApp />
+  </div>
+);
