@@ -5,11 +5,10 @@ on:
     branches:
       - main
 
-
 defaults:
   run:
     working-directory: packages/marketing
-    
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,20 +17,21 @@ jobs:
         node-version: [14.x]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: npm install and build
-      run: |
-        npm install
-        npm run build
-    - name: Archive Build
-      uses: actions/upload-artifact@v2
-      with:
-        name: build
-        path: packages/marketing/build
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: npm install and build
+        run: |
+          npm install
+          npm run build
+      - name: Archive Build
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          working-directory: packages/marketing
+          path: build
 
   deploy:
     name: Deploy
@@ -40,17 +40,18 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Download Build
+        working-directory: packages/marketing
         uses: actions/download-artifact@v2
         with:
           name: build
           path: packages/marketing/build
       - name: Depoy to Firebase
+        working-directory: packages/marketing
         uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-
 # jobs:
 #   build:
 #     runs-on: ubuntu-latest
