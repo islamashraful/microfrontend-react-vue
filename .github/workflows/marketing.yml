@@ -31,7 +31,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: build
-        path: build
+        path: packages/marketing/build
 
   deploy:
     name: Deploy
@@ -43,7 +43,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build
-          path: build
+          path: packages/marketing/build
       - name: Depoy to Firebase
         uses: w9jds/firebase-action@master
         with:
