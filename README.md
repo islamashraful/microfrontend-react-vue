@@ -44,6 +44,9 @@ npm start
 ```
 
 Marketing app will run at http://localhost:8081
+
 Auth app will run at http://localhost:8082
+
 Dashboard app will run at http://localhost:8083
+
 Container app will run at http://localhost:8080
